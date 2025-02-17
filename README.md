@@ -12,7 +12,6 @@ t2s-sre-platform
 │   ├── outputs.tf                # Terraform outputs
 │   ├── terraform.tfvars          # Variables for AWS deployment
 │   ├── providers.tf              # AWS provider
-│   ├── README.md                 # Helm setup guide
 │   
 ├── helm                          # Helm Charts for Kubernetes Deployment
 │   ├── backend-chart/            # Helm chart for Flask API
@@ -28,7 +27,6 @@ t2s-sre-platform
 │   │   ├── templates/            # YAML templates
 │   │   │   ├── deployment.yaml   # Frontend Deployment
 │   │   │   ├── service.yaml      # Frontend Service
-│   ├── README.md                 # Helm setup guide
 │   
 ├── ci-cd                         # CI/CD Pipelines
 │   ├── github-actions.yaml        # GitHub Actions Pipeline
@@ -36,44 +34,37 @@ t2s-sre-platform
 │   ├── Jenkinsfile                # Jenkins pipeline (optional)
 │   ├── Dockerfile                 # Backend Dockerfile
 │   ├── frontend.Dockerfile        # Frontend Dockerfile
-│   ├── README.md                  # CI/CD Setup Guide
 │   
 ├── security                      # Security and Compliance
 │   ├── trivy-scan.yaml           # Trivy Container Security Scan
 │   ├── opa-policies.rego         # OPA Policy Enforcements
 │   ├── vault-setup.yaml          # HashiCorp Vault for secrets management
 │   ├── falco.yaml                # Falco Runtime Security
-│   ├── README.md                 # Security setup documentation
 │   
 ├── monitoring                    # Observability and Monitoring
 │   ├── prometheus-config.yaml    # Prometheus configuration
 │   ├── grafana-dashboards/       # Prebuilt Grafana dashboards
 │   ├── open-telemetry.yaml       # OpenTelemetry Distributed Tracing
 │   ├── alerts.yaml               # Alerting Rules (PagerDuty / Slack)
-│   ├── README.md                 # Monitoring and Logging setup
 │   
 ├── chaos-engineering             # Chaos Engineering Setup
 │   ├── litmuschaos-experiment.yaml # LitmusChaos Fault Injection
 │   ├── gremlin-attack.sh         # Gremlin CPU and Network Chaos
-│   ├── README.md                 # Chaos Engineering Guide
 │   
 ├── backend                       # Flask Backend Code
 │   ├── app.py                    # Flask application
 │   ├── requirements.txt          # Python dependencies
 │   ├── Dockerfile                 # Backend containerization
-│   ├── README.md                  # Backend setup
 │   
 ├── frontend                      # React Frontend Code
 │   ├── src/                      # React app source code
 │   ├── Dockerfile                 # Frontend containerization
 │   ├── package.json               # Node.js dependencies
-│   ├── README.md                  # Frontend setup
 │   
 ├── docs                          # Documentation
 │   ├── architecture-diagram.png  # Project architecture diagram
 │   ├── installation.md           # Installation guide
 │   ├── troubleshooting.md        # Common issues and solutions
-│   ├── README.md                 # Project overview
 │
 └── README.md                     # Main project documentation
 ```
@@ -86,21 +77,63 @@ t2s-sre-platform
 - **Monitoring & Logging** (Prometheus, Grafana, OpenTelemetry, Fluent Bit)
 - **Chaos Engineering** (LitmusChaos, Gremlin)
 
-## Deployment Steps
-1. **Provision Infrastructure**
-   ```sh
-   cd terraform
-   terraform init
-   terraform apply -auto-approve
-   ```
-2. **Deploy Applications via Helm**
-   ```sh
-   helm install backend helm/backend-chart --namespace t2s-app
-   helm install frontend helm/frontend-chart --namespace t2s-app
-   ```
-3. **Set up CI/CD**
-   ```sh
-   kubectl apply -f ci-cd/github-actions.yaml
-   ```
+---
+## Prerequisites
+- **AWS CLI** (Configured with IAM permissions)
+- **Terraform** (Infrastructure as Code)
+- **Kubectl** (Kubernetes CLI)
+- **Helm** (Package manager for Kubernetes)
+- **Docker** (Container runtime)
+- **GitHub Actions** (CI/CD pipeline automation)
 
-For detailed documentation, refer to each directory's respective `README.md` files.
+---
+## Deployment Steps
+### **1. Provision AWS Infrastructure using Terraform**
+```sh
+cd terraform
+terraform init
+terraform apply -auto-approve
+```
+
+### **2. Deploy Applications with Helm**
+```sh
+helm upgrade --install backend helm/backend-chart --namespace t2s-app
+helm upgrade --install frontend helm/frontend-chart --namespace t2s-app
+```
+
+### **3. Set up CI/CD Pipelines**
+- Choose between GitHub and Jenkins depending on your desired CI/CD tool.  
+
+#### GitHub Actions
+```sh
+kubectl apply -f ci-cd/github-actions.yaml
+```
+#### ArgoCD GitOps Deployment
+```sh
+kubectl apply -f ci-cd/argocd.yaml
+```
+#### Jenkins Pipeline (Optional)
+```sh
+kubectl apply -f ci-cd/Jenkinsfile
+```
+
+## Security Features
+- **Trivy** for container security scanning
+- **OPA Policies** to enforce security policies
+- **Vault** for secret management
+- **Falco** for runtime security monitoring
+
+## Monitoring & Observability
+- **Prometheus** for collecting metrics
+- **Grafana** for visual dashboards
+- **OpenTelemetry** for distributed tracing
+- **Alerting** via Slack and PagerDuty
+
+## Chaos Engineering
+- **LitmusChaos** to inject failures
+- **Gremlin** for CPU & Network attacks
+
+## License
+This project is open-source and licensed under the MIT License.
+
+---
