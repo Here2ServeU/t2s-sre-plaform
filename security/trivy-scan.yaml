@@ -1,0 +1,21 @@
+# Trivy Container Security Scan - trivy-scan.yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: trivy-scan
+  namespace: security
+spec:
+  schedule: "0 0 * * *" # Runs daily at midnight
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: trivy
+            image: aquasec/trivy:latest
+            args:
+            - image
+            - --severity=CRITICAL,HIGH
+            - --ignore-unfixed
+            - "docker.io/t2s-backend:latest"
+          restartPolicy: OnFailure
