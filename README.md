@@ -12,8 +12,8 @@ t2s-sre-platform
 │   ├── outputs.tf                # Terraform outputs
 │   ├── terraform.tfvars          # Variables for AWS deployment
 │   ├── providers.tf              # AWS provider
-│   ├── README.md                 # Terraform setup instructions
-│
+│   ├── README.md                 # Helm setup guide
+│   
 ├── helm                          # Helm Charts for Kubernetes Deployment
 │   ├── backend-chart/            # Helm chart for Flask API
 │   │   ├── Chart.yaml            # Helm chart metadata
@@ -29,7 +29,7 @@ t2s-sre-platform
 │   │   │   ├── deployment.yaml   # Frontend Deployment
 │   │   │   ├── service.yaml      # Frontend Service
 │   ├── README.md                 # Helm setup guide
-│
+│   
 ├── ci-cd                         # CI/CD Pipelines
 │   ├── github-actions.yaml        # GitHub Actions Pipeline
 │   ├── argocd.yaml                # ArgoCD GitOps Deployment
@@ -37,38 +37,38 @@ t2s-sre-platform
 │   ├── Dockerfile                 # Backend Dockerfile
 │   ├── frontend.Dockerfile        # Frontend Dockerfile
 │   ├── README.md                  # CI/CD Setup Guide
-│
+│   
 ├── security                      # Security and Compliance
 │   ├── trivy-scan.yaml           # Trivy Container Security Scan
 │   ├── opa-policies.rego         # OPA Policy Enforcements
 │   ├── vault-setup.yaml          # HashiCorp Vault for secrets management
 │   ├── falco.yaml                # Falco Runtime Security
 │   ├── README.md                 # Security setup documentation
-│
+│   
 ├── monitoring                    # Observability and Monitoring
 │   ├── prometheus-config.yaml    # Prometheus configuration
 │   ├── grafana-dashboards/       # Prebuilt Grafana dashboards
 │   ├── open-telemetry.yaml       # OpenTelemetry Distributed Tracing
 │   ├── alerts.yaml               # Alerting Rules (PagerDuty / Slack)
 │   ├── README.md                 # Monitoring and Logging setup
-│
+│   
 ├── chaos-engineering             # Chaos Engineering Setup
 │   ├── litmuschaos-experiment.yaml # LitmusChaos Fault Injection
 │   ├── gremlin-attack.sh         # Gremlin CPU and Network Chaos
 │   ├── README.md                 # Chaos Engineering Guide
-│
+│   
 ├── backend                       # Flask Backend Code
 │   ├── app.py                    # Flask application
 │   ├── requirements.txt          # Python dependencies
 │   ├── Dockerfile                 # Backend containerization
 │   ├── README.md                  # Backend setup
-│
+│   
 ├── frontend                      # React Frontend Code
 │   ├── src/                      # React app source code
 │   ├── Dockerfile                 # Frontend containerization
 │   ├── package.json               # Node.js dependencies
 │   ├── README.md                  # Frontend setup
-│
+│   
 ├── docs                          # Documentation
 │   ├── architecture-diagram.png  # Project architecture diagram
 │   ├── installation.md           # Installation guide
