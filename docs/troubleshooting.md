@@ -10,8 +10,6 @@
 kubectl describe pod <pod-name> -n t2s-app
 kubectl logs <pod-name> -n t2s-app
 ```
-*Example of debugging pod issues:*
-![Pod Debugging](https://via.placeholder.com/800x400.png?text=Kubernetes+Pod+Debugging)
 
 ---
 
@@ -23,8 +21,6 @@ kubectl logs <pod-name> -n t2s-app
 helm uninstall backend -n t2s-app
 helm upgrade --install backend helm/backend-chart --namespace t2s-app
 ```
-*Helm debugging steps:*
-![Helm Debugging](https://via.placeholder.com/800x400.png?text=Helm+Debugging)
 
 ---
 
@@ -38,8 +34,6 @@ helm upgrade --install backend helm/backend-chart --namespace t2s-app
 ```sh
 gh run watch
 ```
-*GitHub Actions Logs:*
-![GitHub Actions Debugging](https://via.placeholder.com/800x400.png?text=GitHub+Actions+Error)
 
 ---
 
