@@ -1,0 +1,13 @@
+# Logging: Fluent Bit
+apiVersion: fluentbit.fluent.io/v1alpha2
+kind: ClusterFilter
+metadata:
+  name: fluent-bit-filter
+  namespace: t2s-app
+spec:
+  filters:
+  - name: kubernetes
+    match: kube.*
+    config:
+      Kube_URL: https://kubernetes.default.svc.cluster.local
+      Buffer_Size: 10MB
