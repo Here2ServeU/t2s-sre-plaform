@@ -1,0 +1,18 @@
+# Alerting Rules - alerts.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: alert-rules
+  namespace: monitoring
+spec:
+  groups:
+  - name: backend-alerts
+    rules:
+    - alert: HighErrorRate
+      expr: rate(http_requests_total{status=~"5.."}[5m]) > 0.05
+      for: 2m
+      labels:
+        severity: critical
+      annotations:
+        summary: "High error rate detected in backend service"
+        description: "The backend service is experiencing a high error rate for more than 2 minutes."
