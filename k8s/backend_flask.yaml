@@ -1,0 +1,24 @@
+# Backend Deployment (Flask API)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: t2s-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: t2s-backend:latest
+        ports:
+        - containerPort: 5000
+        envFrom:
+        - configMapRef:
+            name: backend-config
