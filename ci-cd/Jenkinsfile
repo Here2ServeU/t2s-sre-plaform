@@ -1,0 +1,32 @@
+# Jenkins Pipeline - Jenkinsfile
+pipeline {
+  agent any
+  environment {
+    DOCKER_REGISTRY = credentials('docker-credentials')
+  }
+  stages {
+    stage('Checkout') {
+      steps {
+        git branch: 'main', url: 'https://github.com/Here2ServeU/t2s-sre-platform.git'
+      }
+    }
+    stage('Build and Push Backend') {
+      steps {
+        sh 'docker build -t $DOCKER_REGISTRY/t2s-backend:latest -f ci-cd/Dockerfile .'
+        sh 'docker push $DOCKER_REGISTRY/t2s-backend:latest'
+      }
+    }
+    stage('Build and Push Frontend') {
+      steps {
+        sh 'docker build -t $DOCKER_REGISTRY/t2s-frontend:latest -f ci-cd/frontend.Dockerfile .'
+        sh 'docker push $DOCKER_REGISTRY/t2s-frontend:latest'
+      }
+    }
+    stage('Deploy to Kubernetes') {
+      steps {
+        sh 'helm upgrade --install backend helm/backend-chart --namespace t2s-app'
+        sh 'helm upgrade --install frontend helm/frontend-chart --namespace t2s-app'
+      }
+    }
+  }
+}
