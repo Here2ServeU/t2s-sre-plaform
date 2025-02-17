@@ -1,0 +1,9 @@
+# configmap.yaml - Environment Variables
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+data:
+  DATABASE_HOST: {{ .Values.environmentVariables.DATABASE_HOST }}
+  DATABASE_PORT: {{ .Values.environmentVariables.DATABASE_PORT }}
+  LOG_LEVEL: {{ .Values.environmentVariables.LOG_LEVEL }}
