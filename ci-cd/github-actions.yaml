@@ -1,0 +1,43 @@
+# GitHub Actions Pipeline - github-actions.yaml
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and Push Backend Image
+        run: |
+          docker build -t t2s-backend:latest -f ci-cd/Dockerfile .
+          docker tag t2s-backend:latest ${{ secrets.DOCKER_REGISTRY }}/t2s-backend:latest
+          docker push ${{ secrets.DOCKER_REGISTRY }}/t2s-backend:latest
+
+      - name: Build and Push Frontend Image
+        run: |
+          docker build -t t2s-frontend:latest -f ci-cd/frontend.Dockerfile .
+          docker tag t2s-frontend:latest ${{ secrets.DOCKER_REGISTRY }}/t2s-frontend:latest
+          docker push ${{ secrets.DOCKER_REGISTRY }}/t2s-frontend:latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure Kubectl
+        run: |
+          echo "${{ secrets.KUBECONFIG }}" | base64 --decode > kubeconfig
+          export KUBECONFIG=kubeconfig
+
+      - name: Deploy Helm Charts
+        run: |
+          helm upgrade --install backend helm/backend-chart --namespace t2s-app
+          helm upgrade --install frontend helm/frontend-chart --namespace t2s-app
