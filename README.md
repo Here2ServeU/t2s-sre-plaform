@@ -4,19 +4,15 @@
 ```
 t2s-sre-platform
 ├── terraform                    # Infrastructure as Code (Terraform)
+│   ├── backend-setup            # Code to provision an S3 Bucket and DynamodDB Table for Backend
+│   │   ├── main.tf              # S3, DynamoDB
+│   │   ├── variables.tf         # Variables for S3 and DynamoDB to use for Remote Backend
 │   ├── main.tf                  # EKS Cluster, VPC, RDS, S3
 │   ├── variables.tf              # Input variables
 │   ├── outputs.tf                # Terraform outputs
-│   ├── eks.tf                    # EKS Cluster configuration
-│   ├── alb.tf                    # Application Load Balancer setup
-│   ├── rds.tf                    # PostgreSQL database setup
-│   ├── s3.tf                     # S3 Bucket for frontend assets
-│   ├── security.tf                # IAM roles & security groups
 │   ├── terraform.tfvars          # Variables for AWS deployment
 │   ├── providers.tf              # AWS provider
 │   ├── README.md                 # Terraform setup instructions
-│   ├── backend.tf                # Terraform state management (S3)
-│   ├── outputs.tf                # Terraform outputs
 │
 ├── helm                          # Helm Charts for Kubernetes Deployment
 │   ├── backend-chart/            # Helm chart for Flask API
