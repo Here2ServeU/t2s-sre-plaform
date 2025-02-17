@@ -62,9 +62,9 @@ t2s-sre-platform
 │   ├── package.json               # Node.js dependencies
 │   
 ├── docs                          # Documentation
-│   ├── architecture-diagram.png  # Project architecture diagram
-│   ├── installation.md           # Installation guide
-│   ├── troubleshooting.md        # Common issues and solutions
+│   ├── architecture-diagram.png  # Project architecture diagram - if any, but highly recommended. 
+│   ├── installation.md           # Installation guide - Visuals (videos, screenshots, etc.) highly recommended. 
+│   ├── troubleshooting.md        # Common issues and solutions with Visuals (videos, screenshots, etc.). 
 │
 └── README.md                     # Main project documentation
 ```
