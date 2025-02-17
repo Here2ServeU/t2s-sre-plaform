@@ -1,0 +1,9 @@
+# HashiCorp Vault Setup - vault-setup.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-credentials
+  namespace: security
+type: Opaque
+data:
+  VAULT_TOKEN: "base64-encoded-token"
