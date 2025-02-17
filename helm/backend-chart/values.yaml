@@ -1,0 +1,31 @@
+# values.yaml - Default Values for Helm Chart
+replicaCount: 3
+
+image:
+  repository: t2s-backend
+  tag: latest
+  pullPolicy: IfNotPresent
+
+environmentVariables:
+  DATABASE_HOST: "database-host"
+  DATABASE_PORT: "5432"
+  LOG_LEVEL: "INFO"
+
+service:
+  type: ClusterIP
+  port: 5000
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: "alb"
+  hosts:
+    - host: backend.t2s-app.com
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: backend-service
+              port:
+                number: 5000
