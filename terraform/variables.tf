@@ -70,3 +70,8 @@ variable "s3_backend_bucket" {
   description = "S3 Bucket for Terraform State"
   type        = string
 }
+
+variable "dynamodb_table" {
+  description = "DynamoDB Table for Terraform State Lock"
+  type        = string
+}
